@@ -15,6 +15,7 @@ https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 * ```username``` - Username for SSH connection
 * ```password:``` - Password for SSH connection
 * ```dest-path``` - Full path to destination folder in the server
+* ```pattern``` - File name pattern filter (default = "*")
 
 ## Usage
 TODO
