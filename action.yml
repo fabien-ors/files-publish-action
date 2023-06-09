@@ -35,6 +35,7 @@ runs:
         echo "Artifacts retrieved: $fflist"
         echo "FILE_LIST=$fflist" >> "$GITHUB_ENV"
         fflist=$(join_by ' ' $flist)
+        echo "Artifacts retrieved (2): $fflist"
         echo "FILE_LIST2=$fflist" >> "$GITHUB_ENV"
       shell: bash
       
