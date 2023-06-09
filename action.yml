@@ -30,9 +30,6 @@ runs:
         flist=$(join_by , $flist)
         echo "Artifacts retrieved: $flist"
         echo "FILE_LIST=$flist" >> "$GITHUB_ENV"
-        flist=$(join_by ' ' $flist)
-        echo "Artifacts retrieved: $flist"
-        echo "FILE_LIST2=$flist" >> "$GITHUB_ENV"
       shell: bash
       
     - name: Upload all packages to the server
