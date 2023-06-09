@@ -31,11 +31,11 @@ runs:
         ls -ls download_artifacts/*/${{ inputs.pattern }}
         flist=$(ls download_artifacts/*/${{ inputs.pattern }})
         function join_by { local IFS="$1"; shift; echo "$*"; }
-        flist=$(join_by , $flist)
-        echo "Artifacts retrieved: $flist"
-        echo "FILE_LIST=$flist" >> "$GITHUB_ENV"
-        flist=$(join_by ' ' $flist)
-        echo "FILE_LIST2=$flist" >> "$GITHUB_ENV"
+        fflist=$(join_by , $flist)
+        echo "Artifacts retrieved: $fflist"
+        echo "FILE_LIST=$fflist" >> "$GITHUB_ENV"
+        fflist=$(join_by ' ' $flist)
+        echo "FILE_LIST2=$fflist" >> "$GITHUB_ENV"
       shell: bash
       
     - name: Upload all packages to the server
