@@ -30,6 +30,9 @@ runs:
         flist=$(join_by , $flist)
         echo "Artifacts retrieved: $flist"
         echo "FILE_LIST=$flist" >> "$GITHUB_ENV"
+        flist=$(join_by ' ' $flist)
+        echo "Artifacts retrieved: $flist"
+        echo "FILE_LIST2=$flist" >> "$GITHUB_ENV"
       shell: bash
       
     - name: Upload all packages to the server
@@ -40,4 +43,12 @@ runs:
         password: ${{ inputs.password }}
         source: ${{ env.FILE_LIST }}
         target: ~/
+
+    - name: Move each file to destination and remove download_artifacts folder
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ inputs.host }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+        script: for f in ${{ env.FILE_LIST }}; do mv $f ${{ inputs.dest-path }}; done; rm -rf ~/download_artifacts
 
