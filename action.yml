@@ -48,6 +48,14 @@ runs:
         source: ${{ env.FILE_LIST }}
         target: ~/
 
+    - name: Create destination folder on the server
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ inputs.host }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+        script: mkdir -p ${{ inputs.dest-path }}
+
     - name: Move each file to destination and remove download_artifacts folder
       uses: appleboy/ssh-action@v0.1.10
       with:

@@ -4,7 +4,9 @@ Simple github action to publish files in a server. This action assumes that all 
 I made this following this guide :
 https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
-**Important**: Only support **Linux** docker container. But if you want to publish from a **Windows** or **Mac** runner, the idea is to build under **Windows**/**Mac** and publish under **Linux** using this action (see usage).
+**Important**:
+- Only support **Linux** runner. But if you want to publish from a **Windows** or **Mac** runner, the idea is to build under **Windows**/**Mac** and publish under **Linux** using this action (see usage).
+- This action removes any previous existing files in the destination path of the server
 
 ## Requirements
 - A local or a web server
