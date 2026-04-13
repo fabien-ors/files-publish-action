@@ -20,17 +20,17 @@ runs:
   using: "composite"
   steps:
     - uses: actions/download-artifact@v7
-      # Downloading several artifacts:
-      # https://github.com/actions/download-artifact/issues/103#issuecomment-1290368250
+      # Downloading all available artifacts
       with:
         path: download_artifacts
+        skip-decompress: true # we will do it ourselves in the next steps, for better control
     
     - name: Retrieve the list of all files
       # For join_by function: https://stackoverflow.com/a/17841619/3952924
       run: |
         ls -ls download_artifacts
-        ls -ls download_artifacts/${{ inputs.pattern }}/*
-        flist=$(ls download_artifacts/${{ inputs.pattern }}/*)
+        ls -ls download_artifacts/*${{ inputs.pattern }}*
+        flist=$(ls download_artifacts/*${{ inputs.pattern }}*)
         function join_by { local IFS="$1"; shift; echo "$*"; }
         fflist=$(join_by , $flist)
         echo "Artifacts retrieved: $fflist"
@@ -57,11 +57,11 @@ runs:
         password: ${{ inputs.password }}
         script: mkdir -p ${{ inputs.dest-path }}
 
-    - name: Move each file to destination and remove download_artifacts folder
+    - name: Extract each file to destination and remove download_artifacts folder
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ inputs.host }}
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
-        script: for f in ${{ env.FILE_LIST2 }}; do mv $f ${{ inputs.dest-path }}; done; rm -rf ~/download_artifacts
+        script: for f in ${{ env.FILE_LIST2 }}; do unzip -o $f -d ${{ inputs.dest-path }}; done; rm -rf ~/download_artifacts
 
