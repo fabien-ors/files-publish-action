@@ -19,10 +19,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/download-artifact@v7
-      # Downloading all available artifacts
+    - uses: actions/download-artifact@v8
+      # Downloading specified artifacts only
       with:
         path: download_artifacts
+        pattern: "${{ inputs.pattern }}"
         skip-decompress: true # we will do it ourselves in the next steps, for better control
     
     - name: Retrieve the list of all files
