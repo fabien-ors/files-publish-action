@@ -30,8 +30,7 @@ runs:
       # For join_by function: https://stackoverflow.com/a/17841619/3952924
       run: |
         ls -ls download_artifacts
-        ls -ls download_artifacts/*${{ inputs.pattern }}*
-        flist=$(ls download_artifacts/*${{ inputs.pattern }}*)
+        flist=$(find download_artifacts -type f -path ${{ inputs.pattern }})
         function join_by { local IFS="$1"; shift; echo "$*"; }
         fflist=$(join_by , $flist)
         echo "Artifacts retrieved: $fflist"
